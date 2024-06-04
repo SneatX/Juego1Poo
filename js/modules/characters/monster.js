@@ -5,6 +5,19 @@ export class Monster extends Creature{
         super(name, maxLife, damage)
         
     }
+
+    static createInstance(type){
+        if(Monster.instance && Monster.instance instanceof type){
+            return Monster.instance;
+        }
+
+        if (Monster.instance) {
+            Monster.instance = null;
+        }
+        Monster.instance = new type();
+        return Monster.instance;
+    }
+
 }
 
 export class Orc extends Monster{
