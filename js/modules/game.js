@@ -10,6 +10,8 @@ export class Game{
 
         this.record = []
         this.monster
+        this.hero = new Hero()
+        this.combat = new Combat()
     }
 
     set setRecord(data){
@@ -29,9 +31,19 @@ export class Game{
         this.monster = newMonster
     }
 
-    investigar(){
+    execute(action){
+        if(action === "attack"){
+            this.combat.attack()
+        }
+        else if(action === "investigate"){
+            this.investigate()
+        }else{
+            console.log("Opcion ingresada invalida")
+        }
+    }
+
+    investigate(){
         if(!this.monster){
-            Monster.deleteInstance() //Eliminamos la instancia de mounstro viva por si se repite
             const monstersArr = [Orc, Goblin, Kobold]
             let randomIndex = Math.floor(Math.random() * 3)
             this.monster = Monster.createInstance(monstersArr[randomIndex]) //Asignamos a this.monster la nueva instancia de la clase Monster que es aleatoria
@@ -41,7 +53,7 @@ export class Game{
             let monsterLife = this.monster.getLife //Tomamos la vida de la instancia viva
             if(monsterLife <= 0){
                 this.monster = null
-                this.investigar()
+                this.investigate()
             }
             else{
                 console.log(`The current monster hasn't died:
@@ -49,13 +61,29 @@ Monster life: ${monsterLife}`)
             }
         }
     }
+}
 
-    atacar(damage){
-        this.monster.setLife = damage
-        this.setRecord = `${Hero.instance.getName} do ${damage} damage to ${this.monster.getName}`
-        let monsterLife = this.monster.getLife
-        if(monsterLife <= 0){
-            this.setRecord = `${Hero.instance.getName} defeat ${this.monster.getName}`
+export class Combat{
+    attack(){
+        let game = new Game()
+        let hero = game.hero
+        let monster = game.monster
+
+        if(monster){
+            let damage = hero.damage
+            monster.setLife = -damage
+            game.setRecord = `${hero.getName} do ${damage} damage to ${monster.getName}`
+            console.log(game.getLastRecord) //Imprimimos el ataque
+            let monsterLife = monster.getLife
+            if(monsterLife <= 0){
+                game.setRecord = `${hero.getName} defeat ${monster.getName}`
+                game.monster = null
+                Monster.deleteInstance()
+            }
         }
+        else{
+            console.log("You cant attack, the monster was killed")
+        }
+
     }
 }

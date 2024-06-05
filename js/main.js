@@ -4,13 +4,21 @@ import { Hero } from "./modules/characters/hero.js";
 import { Game } from "./modules/game.js";
 
 
-const hero = new Hero("Main Hero" , 50, 20)
+const hero = new Hero()
 console.log(hero)
 
 const game = new Game()
-game.investigar()
+game.execute("investigate")
 console.log(game.getLastRecord)
-game.atacar(-50)
+game.execute("attack")
 console.log(game.getLastRecord)
-game.investigar()
+game.execute("attack")
+game.execute("investigate")
 console.log(game.getLastRecord)
+game.execute("attack")
+console.log(game.getLastRecord)
+console.log(game.getRecord)
+
+
+
+

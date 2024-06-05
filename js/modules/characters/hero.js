@@ -1,7 +1,7 @@
 import { Creature } from "../creature.js"
 
 export class Hero extends Creature{
-    constructor(name, maxLife, damage){
+    constructor(name = "Main Hero", maxLife = 50, damage = 20){
         if(Hero.instance){
             return Hero.instance
         }
@@ -9,6 +9,5 @@ export class Hero extends Creature{
         super(name, maxLife, damage)
         
         Hero.instance = this
-
     }
 }
