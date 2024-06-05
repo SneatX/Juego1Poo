@@ -9,4 +9,8 @@ export class Creature{
     set setLife(points){
         this.life += points
     }
+
+    get getName(){
+        return this.name
+    }
 }

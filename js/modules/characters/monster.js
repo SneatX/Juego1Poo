@@ -20,12 +20,16 @@ export class Monster extends Creature{
         return Monster.instance;
     }
 
+    static deleteInstance(){
+        Monster.instance = null
+    }
+
     get getLife(){
         return this.life
     }
 
-    get getName(){
-        return this.name
+    set setLife(points){
+        this.life += points
     }
 
 }
