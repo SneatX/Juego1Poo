@@ -3,7 +3,9 @@ import { Creature } from "../creature.js"
 export class Monster extends Creature{
     constructor(name, maxLife, damage){
         super(name, maxLife, damage)
-        
+        this.name = name
+        this.life = maxLife
+        this.damage = damage
     }
 
     static createInstance(type){
@@ -16,6 +18,14 @@ export class Monster extends Creature{
         }
         Monster.instance = new type();
         return Monster.instance;
+    }
+
+    get getLife(){
+        return this.life
+    }
+
+    get getName(){
+        return this.name
     }
 
 }
