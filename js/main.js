@@ -9,15 +9,20 @@ console.log(hero)
 
 const game = new Game()
 game.execute("investigate")
-console.log(game.getLastRecord)
 game.execute("attack")
-console.log(game.getLastRecord)
 game.execute("attack")
 game.execute("investigate")
-console.log(game.getLastRecord)
 game.execute("attack")
-console.log(game.getLastRecord)
-console.log(game.getRecord)
+game.execute("investigate")
+game.execute("attack")
+game.execute("investigate")
+game.execute("attack")
+
+game.showRecord()
+
+console.log(hero)
+
+
 
 
 

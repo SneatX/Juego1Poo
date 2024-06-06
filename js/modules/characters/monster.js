@@ -24,10 +24,6 @@ export class Monster extends Creature{
         Monster.instance = null
     }
 
-    get getLife(){
-        return this.life
-    }
-
     set setLife(points){
         this.life += points
     }

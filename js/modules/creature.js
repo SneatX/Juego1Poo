@@ -6,6 +6,10 @@ export class Creature{
         this.damage = damage
     }
 
+    get getLife(){
+        return this.life
+    }
+
     set setLife(points){
         this.life += points
     }
