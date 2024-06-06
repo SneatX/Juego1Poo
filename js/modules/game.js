@@ -82,6 +82,10 @@ Monster life: ${monsterLife}`)
         Hero.deleteHeroInstance()
         Game.deleteGameInstance()
     }
+
+    useItem(item){
+        this.hero.useItem(item)
+    }
 }
 
 export class Combat{
