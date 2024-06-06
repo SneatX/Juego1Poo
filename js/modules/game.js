@@ -1,5 +1,5 @@
 import { Monster, Orc, Goblin, Kobold } from "./characters/monster.js"
-import { Hero } from "./characters/hero.js"
+import { Hero, Item } from "./characters/hero.js"
 export class Game{
     constructor(){
         //Si ya existe, devuelva la ya creada
@@ -14,7 +14,7 @@ export class Game{
         this.combat = new Combat()
     }
 
-    set setRecord(data){
+    set addRecord(data){
         this.record.push(data)
     }
 
@@ -51,22 +51,33 @@ export class Game{
     }
 
     investigate(){
-        if(!this.monster){
-            const monstersArr = [Orc, Goblin, Kobold]
-            let randomIndex = Math.floor(Math.random() * 3)
-            this.monster = Monster.createInstance(monstersArr[randomIndex]) //Asignamos a this.monster la nueva instancia de la clase Monster que es aleatoria
-            this.setRecord = `Hero investigate: Has been generated a ${this.monster.getName}`
-        }
-        else{
-            let monsterLife = this.monster.getLife //Tomamos la vida de la instancia viva
-            if(monsterLife <= 0){
-                this.monster = null
-                this.investigate()
+        let random = Math.floor(Math.random() * 4)
+        if(random != 3){
+            if(!this.monster){
+                const monstersArr = [Orc, Goblin, Kobold]
+                let randomIndex = Math.floor(Math.random() * 3)
+                this.monster = Monster.createInstance(monstersArr[randomIndex]) //Asignamos a this.monster la nueva instancia de la clase Monster que es aleatoria
+                this.addRecord = `Hero investigate: Has been generated a ${this.monster.getName}`
             }
             else{
-                console.log(`The current monster hasn't died:
-Monster life: ${monsterLife}`)
+                let monsterLife = this.monster.getLife //Tomamos la vida de la instancia viva
+                if(monsterLife <= 0){
+                    this.monster = null
+                    this.investigate()
+                }
+                else{
+                    console.log(`The current monster hasn't died, Monster life: ${monsterLife}`)
+                }
             }
+        }
+        else{
+            const itemsName = ["Item 1", "Item 2", "Item 3"]
+            let randomIndex = Math.floor(Math.random() * 3)
+            let lifePoints = Math.floor(Math.random() * 30) + 1
+            let newIntem = new Item(itemsName[randomIndex], lifePoints)
+            this.useItem(newIntem)
+            this.addRecord = `${this.hero.getName} find a ${itemsName[randomIndex]} and got ${lifePoints} life points`
+            this.addRecord = `Hero life: ${this.hero.getLife}`
         }
     }
 
@@ -100,17 +111,17 @@ export class Combat{
             monster.setLife = -heroDamage
             hero.setLife = -monsterDamage
 
-            game.setRecord = `Combat: ${hero.getName} do ${heroDamage} damage to ${monster.getName} and recieve ${monsterDamage} damage`
+            game.addRecord = `Combat: ${hero.getName} do ${heroDamage} damage to ${monster.getName} and recieve ${monsterDamage} damage`
             console.log(game.getLastRecord) //Imprimimos el ataque
 
             if(monster.getLife <= 0){
-                game.setRecord = `${hero.getName} defeat ${monster.getName}`
+                game.addRecord = `${hero.getName} defeat ${monster.getName}`
                 game.monster = null
                 Monster.deleteMonsterInstance()
             }
             if(hero.getLife <= 0){
-                game.setRecord = `The hero ${hero.getName} was killed`
-                game.setRecord = `---The game ends---`
+                game.addRecord = `The hero ${hero.getName} was killed`
+                game.addRecord = `---The game ends---`
             }
         }
         else{

@@ -27,7 +27,7 @@ export class Hero extends Creature{
     }
 }
 
-class item{
+export class Item{
     constructor(name, lifePoints){
         this.name = name
         this.lifePoints = lifePoints
