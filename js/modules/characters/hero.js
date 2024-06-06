@@ -9,7 +9,6 @@ export class Hero extends Creature{
         super(name, maxLife, damage)
         
         Hero.instance = this
-        this.inventory = []
     }
 
     get getInventory(){
@@ -19,12 +18,6 @@ export class Hero extends Creature{
     static deleteHeroInstance(){
         Hero.instance = null
     }
-
-    useItem(item){
-        item.utilizar(this)
-        let index = this.inventory.indexOf(item)
-        this.inventory.splice(index, 1)
-    }
 }
 
 export class Item{
@@ -33,7 +26,39 @@ export class Item{
         this.lifePoints = lifePoints
     }
 
-    utilizar(objetivo){
-        objetivo.setLife = this.lifePoints
+}
+
+export class Inventory{
+    constructor(){
+        if(Inventory.instance){
+            return Inventory.instance
+        }
+        Inventory.instance = this
+        this.items = []
+    }
+
+    get getItems(){
+        return this.items
+    }
+
+    addItem(item){
+        this.items.push(item)
+    }
+
+    useItem(item){
+        let hero = new Hero()
+        hero.setLife = item.lifePoints
+        this.removeItem(item)
+    }
+
+    removeItem(item){
+        let index = this.items.indexOf(item)
+        this.items.splice(index, 1)
+    }
+
+    showItems(){
+        this.items.forEach(item => {
+            console.log(item)
+        });
     }
 }

@@ -1,10 +1,11 @@
 import { Creature } from "./modules/creature.js";
 import { Monster, Orc, Goblin, Kobold } from "./modules/characters/monster.js";
-import { Hero } from "./modules/characters/hero.js";
+import { Hero, Inventory } from "./modules/characters/hero.js";
 import { Game } from "./modules/game.js";
 
 
 const hero = new Hero()
+const inven = new Inventory()
 console.log(hero)
 
 const game = new Game()

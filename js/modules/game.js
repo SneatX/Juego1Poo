@@ -1,5 +1,5 @@
 import { Monster, Orc, Goblin, Kobold } from "./characters/monster.js"
-import { Hero, Item } from "./characters/hero.js"
+import { Hero, Item, Inventory } from "./characters/hero.js"
 export class Game{
     constructor(){
         //Si ya existe, devuelva la ya creada
@@ -12,6 +12,7 @@ export class Game{
         this.monster
         this.hero = new Hero()
         this.combat = new Combat()
+        this.Inventory = new Inventory()
     }
 
     set addRecord(data){
@@ -75,9 +76,8 @@ export class Game{
             let randomIndex = Math.floor(Math.random() * 3)
             let lifePoints = Math.floor(Math.random() * 30) + 1
             let newIntem = new Item(itemsName[randomIndex], lifePoints)
-            this.useItem(newIntem)
-            this.addRecord = `${this.hero.getName} find a ${itemsName[randomIndex]} and got ${lifePoints} life points`
-            this.addRecord = `Hero life: ${this.hero.getLife}`
+            this.addRecord = `${this.hero.getName} find a ${itemsName[randomIndex]} with ${lifePoints} life points`
+            this.Inventory.addItem(newIntem)
         }
     }
 
@@ -94,9 +94,7 @@ export class Game{
         Game.deleteGameInstance()
     }
 
-    useItem(item){
-        this.hero.useItem(item)
-    }
+
 }
 
 export class Combat{
