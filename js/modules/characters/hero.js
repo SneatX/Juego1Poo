@@ -1,4 +1,5 @@
 import { Creature } from "../creature.js"
+import { Game } from "../game.js"
 
 export class Hero extends Creature{
     constructor(name = "Main Hero", maxLife = 50, damage = 20){
@@ -25,7 +26,12 @@ export class Item{
         this.name = name
         this.lifePoints = lifePoints
     }
-
+    get getName(){
+        return this.name
+    }
+    get getPoints(){
+        return this.lifePoints
+    }
 }
 
 export class Inventory{
@@ -57,8 +63,12 @@ export class Inventory{
     }
 
     showItems(){
+        let game = new Game()
+        let str = `Hero inventory: \n`
         this.items.forEach(item => {
             console.log(item)
+            str+= `    -${item.getName} : ${item.getPoints}\n`
         });
+        game.addRecord = str
     }
 }

@@ -12,7 +12,7 @@ export class Game{
         this.monster
         this.hero = new Hero()
         this.combat = new Combat()
-        this.Inventory = new Inventory()
+        this.inventory = new Inventory()
     }
 
     set addRecord(data){
@@ -36,18 +36,34 @@ export class Game{
         Game.instance = null
     }
 
-    execute(action){
+    execute(action, indexItem = 0){
         if(this.hero.getLife > 0){
             if(action === "attack"){
                 this.combat.attack()
             }
             else if(action === "investigate"){
                 this.investigate()
-            }else{
-                console.log("Opcion ingresada invalida")
+            }
+            else if(action === "showItems"){
+                this.inventory.showItems()
+            }
+            else if(action === "useItem"){
+                let items = this.inventory.getItems
+                if(items.length > 0){
+                    if(indexItem <= items.length -1){
+                        this.inventory.useItem(items[indexItem]) //En teoria esta validacion no es necesaria, pero al ser por consola hay que hacerla
+                    }else{
+                        this.addRecord = "The hero dont have any items in that position"
+                    }
+                }else{
+                    this.addRecord = "The hero dont have any items"
+                }
+            }
+            else{
+                this.addRecord = "Opcion ingresada invalida"
             }
         }else{
-            console.log("The hero is dead")
+            this.addRecord = "The hero is dead"
         }
     }
 
@@ -67,7 +83,7 @@ export class Game{
                     this.investigate()
                 }
                 else{
-                    console.log(`The current monster hasn't died, Monster life: ${monsterLife}`)
+                    this.addRecord = `The current monster hasn't died, Monster life: ${monsterLife}`
                 }
             }
         }
@@ -77,7 +93,7 @@ export class Game{
             let lifePoints = Math.floor(Math.random() * 30) + 1
             let newIntem = new Item(itemsName[randomIndex], lifePoints)
             this.addRecord = `${this.hero.getName} find a ${itemsName[randomIndex]} with ${lifePoints} life points`
-            this.Inventory.addItem(newIntem)
+            this.inventory.addItem(newIntem)
         }
     }
 
@@ -110,7 +126,6 @@ export class Combat{
             hero.setLife = -monsterDamage
 
             game.addRecord = `Combat: ${hero.getName} do ${heroDamage} damage to ${monster.getName} and recieve ${monsterDamage} damage`
-            console.log(game.getLastRecord) //Imprimimos el ataque
 
             if(monster.getLife <= 0){
                 game.addRecord = `${hero.getName} defeat ${monster.getName}`
@@ -123,7 +138,7 @@ export class Combat{
             }
         }
         else{
-            console.log("You cant attack, the monster was killed")
+            game.addRecord = "You can't attack, there are no monsters"
         }
 
     }
