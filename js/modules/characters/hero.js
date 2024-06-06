@@ -10,4 +10,8 @@ export class Hero extends Creature{
         
         Hero.instance = this
     }
+
+    static deleteHeroInstance(){
+        Hero.instance = null
+    }
 }

@@ -20,7 +20,7 @@ export class Monster extends Creature{
         return Monster.instance;
     }
 
-    static deleteInstance(){
+    static deleteMonsterInstance(){
         Monster.instance = null
     }
 

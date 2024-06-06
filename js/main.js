@@ -20,10 +20,7 @@ game.execute("attack")
 
 game.showRecord()
 
-console.log(hero)
-
-
-
-
-
-
+game.restartGame()
+console.log(Hero.instance)
+console.log(Monster.instance)
+console.log(Game.instance)

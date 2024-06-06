@@ -31,6 +31,10 @@ export class Game{
         this.monster = newMonster
     }
 
+    static deleteGameInstance(){
+        Game.instance = null
+    }
+
     execute(action){
         if(this.hero.getLife > 0){
             if(action === "attack"){
@@ -72,6 +76,12 @@ Monster life: ${monsterLife}`)
             console.log(element)
         });
     }
+
+    restartGame(){
+        Monster.deleteMonsterInstance()
+        Hero.deleteHeroInstance()
+        Game.deleteGameInstance()
+    }
 }
 
 export class Combat{
@@ -92,7 +102,7 @@ export class Combat{
             if(monster.getLife <= 0){
                 game.setRecord = `${hero.getName} defeat ${monster.getName}`
                 game.monster = null
-                Monster.deleteInstance()
+                Monster.deleteMonsterInstance()
             }
             if(hero.getLife <= 0){
                 game.setRecord = `The hero ${hero.getName} was killed`
