@@ -37,7 +37,8 @@ export class Game{
     }
 
     execute(action, indexItem = 0){
-        if(this.hero.getLife > 0){
+        let hero = new Hero()
+        if(hero.getLife > 0){
             if(action === "attack"){
                 this.combat.attack()
             }
@@ -65,6 +66,7 @@ export class Game{
         }else{
             this.addRecord = "The hero is dead"
         }
+        this.showRecord()
     }
 
     investigate(){
@@ -105,9 +107,7 @@ export class Game{
     }
 
     restartGame(){
-        Monster.deleteMonsterInstance()
-        Hero.deleteHeroInstance()
-        Game.deleteGameInstance()
+        location.reload();
     }
 
 
@@ -116,7 +116,7 @@ export class Game{
 export class Combat{
     attack(){
         let game = new Game()
-        let hero = game.hero
+        let hero = new Hero()
         let monster = game.monster
 
         if(monster){

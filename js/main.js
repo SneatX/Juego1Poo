@@ -45,7 +45,7 @@ useItemsButton.addEventListener("click" , (e)=>{
     e.stopPropagation()
     let inven = new Inventory()
     inven.showItems
-    let option = parseInt(prompt("Insert the index of the item"))
+    let option = Number(prompt("Insert the index of the item"))
     game.execute("useItem", option)
     
 })

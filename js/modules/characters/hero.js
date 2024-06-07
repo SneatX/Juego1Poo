@@ -47,14 +47,20 @@ export class Inventory{
         return this.items
     }
 
+    clearItems(){
+        this.items = []
+    }
+
     addItem(item){
         this.items.push(item)
     }
 
     useItem(item){
+        let game = new Game()
         let hero = new Hero()
         hero.setLife = item.lifePoints
         this.removeItem(item)
+        game.addRecord = `${hero.getName} use a ${item.getName} and receive ${item.getPoints}`
     }
 
     removeItem(item){
@@ -65,9 +71,9 @@ export class Inventory{
     showItems(){
         let game = new Game()
         let str = `Hero inventory: \n`
-        this.items.forEach(item => {
+        this.items.forEach((item, index) => {
             console.log(item)
-            str+= `    -${item.getName} : ${item.getPoints}\n`
+            str+= `    -${index} : ${item.getName} : ${item.getPoints}\n`
         });
         game.addRecord = str
     }
